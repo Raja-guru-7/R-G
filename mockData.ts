@@ -23,9 +23,8 @@ export const MOCK_ITEMS: Item[] = [
     pricePerDay: 45,
     depositAmount: 200,
     insuranceFee: 15,
-    imageUrl: 'https://picsum.photos/seed/camera/600/400',
-    location: { lat: 40.7150, lng: -74.0080, address: 'Tribeca, New York' },
-    distance: 0.4
+    imageUrl: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=800',
+    location: { lat: 40.7150, lng: -74.0080, address: 'Tribeca District' }
   },
   {
     id: 'item-2',
@@ -33,14 +32,13 @@ export const MOCK_ITEMS: Item[] = [
     ownerName: 'Marcus Chen',
     ownerTrustScore: 85,
     title: 'Heavy Duty Power Drill Set',
-    description: 'DeWalt brushless drill with 2 batteries and charger. Powerful and reliable.',
+    description: 'DeWalt brushless drill with 2 batteries and charger. Powerful and reliable for DIY projects.',
     category: 'Tools',
     pricePerDay: 15,
     depositAmount: 50,
     insuranceFee: 5,
-    imageUrl: 'https://picsum.photos/seed/drill/600/400',
-    location: { lat: 40.7110, lng: -74.0100, address: 'Financial District, New York' },
-    distance: 0.8
+    imageUrl: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=800',
+    location: { lat: 40.7110, lng: -74.0100, address: 'South Financial' }
   },
   {
     id: 'item-3',
@@ -48,14 +46,13 @@ export const MOCK_ITEMS: Item[] = [
     ownerName: 'Elena Rodriguez',
     ownerTrustScore: 96,
     title: '4-Person Waterproof Tent',
-    description: 'High-quality camping tent, easy setup, used only once. Perfect for weekend trips.',
+    description: 'High-quality camping tent, easy setup, used only once. Perfect for weekend mountain trips.',
     category: 'Camping',
     pricePerDay: 25,
     depositAmount: 100,
     insuranceFee: 10,
-    imageUrl: 'https://picsum.photos/seed/tent/600/400',
-    location: { lat: 40.7180, lng: -74.0000, address: 'Chinatown, New York' },
-    distance: 1.2
+    imageUrl: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&q=80&w=800',
+    location: { lat: 40.7180, lng: -74.0000, address: 'East Side Hub' }
   },
   {
     id: 'item-4',
@@ -63,14 +60,13 @@ export const MOCK_ITEMS: Item[] = [
     ownerName: 'R G',
     ownerTrustScore: 99,
     title: 'Mountain Bike X-200',
-    description: 'Perfect for local trails. Well maintained, includes helmet and lock.',
+    description: 'Perfect for local trails. Well maintained, includes helmet and lock for extra safety.',
     category: 'Vehicle',
     pricePerDay: 35,
     depositAmount: 150,
     insuranceFee: 12,
-    imageUrl: 'https://picsum.photos/seed/bike/600/400',
-    location: { lat: 40.7130, lng: -74.0050, address: 'SoHo, New York' },
-    distance: 0.2
+    imageUrl: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&q=80&w=800',
+    location: { lat: 40.7130, lng: -74.0050, address: 'SoHo Junction' }
   },
   {
     id: 'item-5',
@@ -78,74 +74,57 @@ export const MOCK_ITEMS: Item[] = [
     ownerName: 'James Wilson',
     ownerTrustScore: 92,
     title: 'DJI Mavic Air 2 Drone',
-    description: '4K camera drone with fly more combo. Excellent for aerial cinematography.',
+    description: '4K camera drone with fly more combo. Excellent for breathtaking aerial cinematography.',
     category: 'Media',
     pricePerDay: 55,
     depositAmount: 300,
     insuranceFee: 20,
-    imageUrl: 'https://picsum.photos/seed/drone/600/400',
-    location: { lat: 40.7200, lng: -74.0020, address: 'Greenwich Village, NY' },
-    distance: 0.9
+    imageUrl: 'https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?auto=format&fit=crop&q=80&w=800',
+    location: { lat: 40.7200, lng: -74.0020, address: 'Greenwich Center' }
   },
-  {
-    id: 'item-6',
-    ownerId: 'owner-6',
-    ownerName: 'Sophia Kim',
-    ownerTrustScore: 97,
-    title: 'KitchenAid Artisan Mixer',
-    description: '5-quart stand mixer with all attachments. Perfect for baking enthusiasts.',
-    category: 'Home',
-    pricePerDay: 18,
-    depositAmount: 80,
-    insuranceFee: 6,
-    imageUrl: 'https://picsum.photos/seed/mixer/600/400',
-    location: { lat: 40.7140, lng: -74.0120, address: 'Battery Park, New York' },
-    distance: 1.1
-  },
+ 
   {
     id: 'item-7',
     ownerId: 'owner-7',
     ownerName: 'Liam O’Brien',
     ownerTrustScore: 89,
     title: 'Professional Steam Cleaner',
-    description: 'Multi-purpose steam cleaner for deep cleaning carpets and upholstery.',
+    description: 'Multi-purpose steam cleaner for deep cleaning carpets and professional upholstery care.',
     category: 'Tools',
     pricePerDay: 30,
     depositAmount: 120,
     insuranceFee: 8,
-    imageUrl: 'https://picsum.photos/seed/cleaner/600/400',
-    location: { lat: 40.7105, lng: -74.0040, address: 'Two Bridges, New York' },
-    distance: 0.7
+    imageUrl: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800',
+    location: { lat: 40.7105, lng: -74.0040, address: 'Bridges District' }
   },
-  {
-    id: 'item-8',
-    ownerId: 'owner-8',
-    ownerName: 'Isabella Silva',
-    ownerTrustScore: 94,
-    title: 'Nintendo Switch OLED',
-    description: 'Latest model with 3 popular games included. Perfect for travel or parties.',
-    category: 'Electronics',
-    pricePerDay: 20,
-    depositAmount: 100,
-    insuranceFee: 7,
-    imageUrl: 'https://picsum.photos/seed/switch/600/400',
-    location: { lat: 40.7220, lng: -74.0100, address: 'Hudson Square, NY' },
-    distance: 1.5
-  },
+  
   {
     id: 'item-9',
     ownerId: 'owner-9',
     ownerName: 'David Zhang',
     ownerTrustScore: 82,
     title: 'Electric Pressure Washer',
-    description: '2000 PSI pressure washer. Great for cleaning patios, cars, and siding.',
+    description: 'High-pressure 2000 PSI washer. Ideal for cleaning patios, cars, and home siding.',
     category: 'Tools',
     pricePerDay: 22,
     depositAmount: 70,
     insuranceFee: 6,
-    imageUrl: 'https://picsum.photos/seed/washer/600/400',
-    location: { lat: 40.7160, lng: -73.9980, address: 'Lower East Side, NY' },
-    distance: 1.8
+    imageUrl: 'https://images.unsplash.com/photo-1589739900243-4b52cd9b104e?auto=format&fit=crop&q=80&w=800',
+    location: { lat: 40.7160, lng: -73.9980, address: 'East Side Pier' }
+  },
+  {
+    id: 'item-10',
+    ownerId: 'owner-10',
+    ownerName: 'Chloe Bennett',
+    ownerTrustScore: 95,
+    title: 'Compact Camping Stove',
+    description: 'Ultralight and fuel-efficient stove. Perfect for neighborhood backpackers.',
+    category: 'Camping',
+    pricePerDay: 12,
+    depositAmount: 40,
+    insuranceFee: 4,
+    imageUrl: 'https://images.unsplash.com/photo-1536411396596-afed9fa3c1b2?auto=format&fit=crop&q=80&w=800',
+    location: { lat: 40.7191, lng: -73.9973, address: 'Central Plaza' }
   }
 ];
 
@@ -174,16 +153,5 @@ export const MOCK_TRANSACTIONS: Transaction[] = [
     status: TransactionStatus.ACTIVE,
     otpCode: '1234'
   },
-  {
-    id: 'tx-3',
-    itemId: 'item-4',
-    itemTitle: 'Mountain Bike X-200',
-    renterId: 'renter-2',
-    ownerId: 'user-1',
-    startDate: '2023-11-01',
-    endDate: '2023-11-03',
-    totalAmount: 82,
-    status: TransactionStatus.REQUESTED,
-    otpCode: '9981'
-  }
+ 
 ];

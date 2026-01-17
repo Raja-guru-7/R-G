@@ -1,5 +1,5 @@
 
-import React;
+import React from 'react';
 import { ShieldCheck, Video, UserCheck, Wallet, Camera, Hammer, Tent, ChevronRight, Zap } from 'lucide-react';
 
 interface LandingProps {
@@ -8,7 +8,7 @@ interface LandingProps {
 
 const Landing: React.FC<LandingProps> = ({ onLogin }) => {
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-[#06070a] text-white flex flex-col items-center">
+    <div className="relative w-full min-h-screen overflow-y-auto bg-[#06070a] text-white flex flex-col items-center">
       {/* Cinematic Background Elements */}
       <div className="absolute inset-0 eclipse-glow pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] md:w-[900px] h-[300px] sm:h-[600px] md:h-[900px] bg-[#A84bc9]/10 blur-[100px] sm:blur-[180px] rounded-full animate-pulse-slow pointer-events-none" />
@@ -21,8 +21,8 @@ const Landing: React.FC<LandingProps> = ({ onLogin }) => {
         </div>
       </div>
 
-      {/* Floating Cards - Hidden on smaller screens for cleaner focus */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Floating Cards */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <FloatingAsset 
           icon={<Camera className="text-[#A84bc9]" size={24} />} 
           label="Imaging Node" 
@@ -58,18 +58,17 @@ const Landing: React.FC<LandingProps> = ({ onLogin }) => {
         <div className="dark-glass rounded-full px-6 sm:px-10 py-3 sm:py-4 flex items-center justify-between shadow-[0_20px_60px_rgba(0,0,0,0.8)] border border-white/5 ring-1 ring-white/5">
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="bg-[#A84bc9] p-1.5 sm:p-2 rounded-lg sm:rounded-xl shadow-xl shadow-[#A84bc9]/20">
-              {/* Fix: Removed invalid sm:size prop and added responsive Tailwind classes */}
-              <ShieldCheck className="text-white w-4 h-4 sm:w-5 sm:h-5" size={16} />
+              <ShieldCheck className="text-white w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <span className="text-base sm:text-xl font-black tracking-tighter uppercase italic">Trust<span className="text-[#A84bc9]">Rent</span></span>
+            <span className="text-base sm:text-xl font-black tracking-tighter uppercase italic">Around<span className="text-[#A84bc9]">U</span></span>
           </div>
           
           <nav className="hidden lg:flex items-center gap-10 text-[10px] font-black uppercase tracking-[0.3em] text-white/30">
-            <a href="#" className="hover:text-white transition-all">Protocol</a>
-            <a href="#" className="hover:text-white transition-all">Verification</a>
-            <a href="#" className="hover:text-white transition-all">Escrow</a>
-            <a href="#" className="hover:text-white transition-all">Reputation</a>
-            <a href="#" className="hover:text-white transition-all">Access Hub</a>
+            <button onClick={onLogin} className="hover:text-white transition-all uppercase">Protocol</button>
+            <button onClick={onLogin} className="hover:text-white transition-all uppercase">Verification</button>
+            <button onClick={onLogin} className="hover:text-white transition-all uppercase">Escrow</button>
+            <button onClick={onLogin} className="hover:text-white transition-all uppercase">Reputation</button>
+            <button onClick={onLogin} className="hover:text-white transition-all uppercase">Access Hub</button>
           </nav>
 
           <button 
@@ -82,7 +81,7 @@ const Landing: React.FC<LandingProps> = ({ onLogin }) => {
       </div>
 
       {/* Hero Content Section */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 sm:px-10">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 sm:px-10 py-20">
         <div className="relative mb-6 sm:mb-8 select-none">
           <div className="text-[60px] sm:text-[120px] md:text-[160px] font-black text-white/5 italic leading-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[80%] whitespace-nowrap tracking-tighter">
             Completely
@@ -113,8 +112,8 @@ const Landing: React.FC<LandingProps> = ({ onLogin }) => {
           </div>
         </div>
 
-        {/* Feature Grid - Adaptive grid */}
-        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-6xl mt-16 sm:mt-24 mb-10 overflow-y-auto max-h-[40vh] sm:max-h-none">
+        {/* Feature Grid */}
+        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-6xl mt-16 sm:mt-24 mb-10">
           <FeatureHub icon={<Video size={20} className="text-[#A84bc9]" />} title="Live Proof" sub="Node Handover" />
           <FeatureHub icon={<UserCheck size={20} className="text-[#A84bc9]" />} title="Biometrics" sub="ID Verification" />
           <FeatureHub icon={<Wallet size={20} className="text-[#A84bc9]" />} title="Escrow" sub="Risk Management" />

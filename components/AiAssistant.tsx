@@ -7,7 +7,7 @@ const AiAssistant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<{ role: 'user' | 'assistant'; content: string }[]>([
-    { role: 'assistant', content: "Hello! I'm your TrustRent Concierge. How can I help you navigate the neighborhood mesh network today?" }
+    { role: 'assistant', content: "Hello! I'm your AroundU Concierge. How can I help you navigate the neighborhood mesh network today?" }
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -35,7 +35,7 @@ const AiAssistant: React.FC = () => {
           parts: [{ text: m.content }]
         })),
         config: {
-          systemInstruction: "You are the TrustRent Smart Concierge, an AI specialized in hyper-local P2P rentals. You help users understand the trust-first system, including bi-directional video handovers, OTP verification, and escrow logic. You are professional, emphasizing security and community trust. Keep responses concise and use tech-forward, high-security terminology like 'Nodes', 'Protocols', and 'Mesh Network'.",
+          systemInstruction: "You are the AroundU Smart Concierge, an AI specialized in hyper-local P2P rentals. You help users understand the trust-first system, including bi-directional video handovers, OTP verification, and escrow logic. You are professional, emphasizing security and community trust. Keep responses concise and use tech-forward, high-security terminology like 'Nodes', 'Protocols', and 'Mesh Network'.",
           temperature: 0.7,
         },
       });

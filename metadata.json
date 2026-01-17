@@ -1,5 +1,5 @@
 {
-  "name": "TrustRent - Hyper-Local P2P Rentals",
+  "name": "AroundU - Hyper-Local P2P Rentals",
   "description": "A secure hyper-local peer-to-peer rental platform emphasizing trust through live video verification, OTP handovers, and escrow logic.",
   "requestFramePermissions": [
     "camera",

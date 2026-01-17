@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MOCK_TRANSACTIONS, MOCK_CURRENT_USER } from '../mockData';
 import { 
@@ -19,11 +19,22 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const Dashboard: React.FC = () => {
+// Added DashboardProps interface to fix type error in App.tsx
+interface DashboardProps {
+  role: 'RENTER' | 'OWNER';
+}
+
+const Dashboard: React.FC<DashboardProps> = ({ role }) => {
   const navigate = useNavigate();
-  const [tab, setTab] = useState<'renting' | 'lending'>('renting');
+  // Initialize tab based on the current user role to provide a relevant starting view
+  const [tab, setTab] = useState<'renting' | 'lending'>(role === 'OWNER' ? 'lending' : 'renting');
   const [isStatusLoading, setIsStatusLoading] = useState(false);
   const [showNetworkModal, setShowNetworkModal] = useState(false);
+
+  // Sync tab if user role is toggled from the navbar while on the dashboard
+  useEffect(() => {
+    setTab(role === 'OWNER' ? 'lending' : 'renting');
+  }, [role]);
 
   const handleCheckNetwork = async () => {
     setIsStatusLoading(true);
@@ -34,7 +45,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 sm:px-10 pt-10 sm:pt-20 pb-40">
+    <div className="relative max-w-7xl mx-auto px-6 sm:px-10 pt-10 sm:pt-20 pb-40">
       <div className="absolute inset-0 eclipse-glow pointer-events-none -z-10" />
 
       {/* Network Status Modal Overlay */}
@@ -77,8 +88,8 @@ const Dashboard: React.FC = () => {
       )}
 
       <button 
-        onClick={() => navigate(-1)}
-        className="flex items-center gap-3 text-white/30 hover:text-white transition-all mb-8 sm:mb-12 font-black uppercase text-[10px] sm:text-xs tracking-widest"
+        onClick={() => navigate('/explore')}
+        className="flex items-center gap-3 text-white/30 hover:text-white transition-all mb-8 sm:mb-12 font-black uppercase text-[10px] sm:text-xs tracking-widest relative z-50"
       >
         <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl flex items-center justify-center">
           <ChevronLeft size={18} className="w-[18px] h-[18px] sm:w-5 sm:h-5" />
@@ -159,7 +170,6 @@ const Dashboard: React.FC = () => {
                           </div>
                        </div>
                        <Link to={`/handover/${tx.id}`} className="w-full sm:w-auto flex items-center justify-center gap-3 sm:gap-4 bg-white text-[#06070a] px-8 sm:px-10 py-4 sm:py-5 rounded-xl sm:rounded-[1.8rem] font-black text-[10px] sm:text-xs uppercase tracking-[0.2em] hover:brightness-95 transition-all shadow-2xl active:scale-95">
-                          {/* Fix: Removed invalid sm:size prop and added responsive Tailwind classes */}
                           Initiate Verification <ArrowUpRight size={18} className="w-[18px] h-[18px] sm:w-5 sm:h-5" />
                        </Link>
                     </div>
@@ -170,7 +180,6 @@ const Dashboard: React.FC = () => {
           ) : (
             <div className="bg-[#0a0c12]/50 p-12 sm:p-20 rounded-[2.5rem] sm:rounded-[4rem] border-2 border-dashed border-white/5 text-center">
                <div className="w-16 h-16 sm:w-24 sm:h-24 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-6 sm:mb-10 border border-white/5">
-                 {/* Fix: Removed invalid sm:size prop and added responsive Tailwind classes */}
                  <PlusCircle className="text-white/10 w-8 h-8 sm:w-12 sm:h-12" size={32} />
                </div>
                <h3 className="text-xl sm:text-2xl font-black text-white mb-2 sm:mb-4 uppercase tracking-widest italic">Inventory Offline</h3>
@@ -190,7 +199,6 @@ const Dashboard: React.FC = () => {
                   <p className="text-[8px] sm:text-[10px] text-white/20 font-black uppercase tracking-[0.2em]">Community Score</p>
                </div>
                <div className="bg-emerald-500/10 text-emerald-400 p-2 sm:p-3 rounded-xl sm:rounded-2xl border border-emerald-500/20">
-                 {/* Fix: Removed invalid sm:size prop and added responsive Tailwind classes */}
                  <Activity size={20} className="w-5 h-5 sm:w-6 sm:h-6" />
                </div>
             </div>
@@ -217,14 +225,12 @@ const Dashboard: React.FC = () => {
           {/* Security Status Widget */}
           <div className="bg-[#A84bc9] p-8 sm:p-10 rounded-[2.5rem] sm:rounded-[4rem] text-white relative overflow-hidden shadow-[0_30px_100px_rgba(168,75,201,0.3)] ring-1 ring-white/20">
             <div className="absolute top-[-40px] right-[-40px] opacity-10">
-              {/* Fix: Removed invalid sm:size prop and added responsive Tailwind classes */}
               <ShieldCheck size={160} className="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px]" />
             </div>
             <h3 className="font-black text-white/60 mb-8 sm:mb-10 uppercase tracking-[0.2em] text-[9px] sm:text-[10px]">Security Matrix</h3>
             <div className="space-y-6 sm:space-y-8">
                <div className="flex items-center gap-4 sm:gap-6">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/10 rounded-xl sm:rounded-2xl flex items-center justify-center border border-white/20">
-                    {/* Fix: Removed invalid sm:size prop and added responsive Tailwind classes */}
                     <Zap className="text-white w-[18px] h-[18px] sm:w-5 sm:h-5" size={18} fill="currentColor" />
                   </div>
                   <div>
@@ -234,7 +240,6 @@ const Dashboard: React.FC = () => {
                </div>
                <div className="flex items-center gap-4 sm:gap-6">
                   <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/10 rounded-xl sm:rounded-2xl flex items-center justify-center border border-white/20">
-                    {/* Fix: Removed invalid sm:size prop and added responsive Tailwind classes */}
                     <ShieldCheck className="text-white w-[18px] h-[18px] sm:w-5 sm:h-5" size={18} />
                   </div>
                   <div>
