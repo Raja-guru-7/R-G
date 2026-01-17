@@ -1,14 +1,15 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { MOCK_TRANSACTIONS } from '../mockData';
+import { api } from '../services/api';
+import { Transaction } from '../types';
 import { ShieldCheck, Info, Lock, CheckCircle, Video, Loader2, ChevronLeft, ClipboardCheck } from 'lucide-react';
 import CameraCapture from '../components/CameraCapture';
 
 const Handover: React.FC = () => {
   const { txId } = useParams();
   const navigate = useNavigate();
-  const tx = MOCK_TRANSACTIONS.find(t => t.id === txId) || MOCK_TRANSACTIONS[0];
+  const [tx, setTx] = useState<Transaction | null>(null);
   
   const [step, setStep] = useState(1);
   const [otp, setOtp] = useState(['', '', '', '']);
@@ -17,7 +18,6 @@ const Handover: React.FC = () => {
   const [renterVideo, setRenterVideo] = useState<Blob | null>(null);
   const [isCompleting, setIsCompleting] = useState(false);
   
-  // Digital Condition Report Checklist
   const [checklist, setChecklist] = useState({
     condition: false,
     functionality: false,
@@ -30,6 +30,12 @@ const Handover: React.FC = () => {
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null)
   ];
+
+  useEffect(() => {
+    if (txId) {
+      api.getTransactionById(txId).then(data => setTx(data || null));
+    }
+  }, [txId]);
 
   const handleOtpChange = (index: number, value: string) => {
     if (!/^\d*$/.test(value)) return;
@@ -44,10 +50,10 @@ const Handover: React.FC = () => {
   };
 
   const verifyOtp = async () => {
+    if (!txId) return;
     setIsVerifying(true);
-    await new Promise(r => setTimeout(r, 1500));
-    const fullOtp = otp.join('');
-    if (fullOtp === tx.otpCode || fullOtp === '1234') {
+    const isValid = await api.verifyOtp(txId, otp.join(''));
+    if (isValid) {
       setStep(2);
     } else {
       alert("Invalid Security Code.");
@@ -58,14 +64,22 @@ const Handover: React.FC = () => {
   };
 
   const handleComplete = async () => {
+    if (!txId || !renterVideo) return;
     setIsCompleting(true);
-    await new Promise(r => setTimeout(r, 2000));
-    alert("Handover Successful! Rental is now ACTIVE.");
-    navigate('/dashboard');
+    try {
+      await api.uploadHandoverProof(txId, renterVideo, 'RENTER');
+      await api.completeTransaction(txId);
+      alert("Handover Successful! Rental is now ACTIVE.");
+      navigate('/dashboard');
+    } finally {
+      setIsCompleting(false);
+    }
   };
 
   const isOtpComplete = otp.every(digit => digit !== '');
   const isChecklistComplete = checklist.condition && checklist.functionality && checklist.accessories;
+
+  if (!tx) return <div className="p-20 text-center font-black uppercase text-white/20">Establishing Node Link...</div>;
 
   return (
     <div className="max-w-xl mx-auto px-4 py-12 pb-40">
@@ -125,7 +139,16 @@ const Handover: React.FC = () => {
                </div>
             </div>
             <CameraCapture label="Capture Lender Proof" mode="video" onCapture={(blob) => setOwnerVideo(blob)} />
-            <button onClick={() => setStep(3)} disabled={!ownerVideo} className="w-full bg-[#A84bc9] text-white py-6 rounded-[1.8rem] font-black uppercase tracking-[0.3em] text-xs shadow-2xl disabled:opacity-20 active:scale-95 transition-all">Proceed to Renter Proof</button>
+            <button 
+              onClick={() => {
+                if(txId && ownerVideo) api.uploadHandoverProof(txId, ownerVideo, 'OWNER');
+                setStep(3);
+              }} 
+              disabled={!ownerVideo} 
+              className="w-full bg-[#A84bc9] text-white py-6 rounded-[1.8rem] font-black uppercase tracking-[0.3em] text-xs shadow-2xl disabled:opacity-20 active:scale-95 transition-all"
+            >
+              Proceed to Renter Proof
+            </button>
           </div>
         )}
 
@@ -139,7 +162,6 @@ const Handover: React.FC = () => {
                </div>
             </div>
 
-            {/* Checklist UI */}
             <div className="space-y-3 bg-white/5 p-6 rounded-[2rem] border border-white/5">
               {[
                 { key: 'condition', label: 'Asset matches listed condition' },

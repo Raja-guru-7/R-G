@@ -3,8 +3,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
-import { MOCK_ITEMS } from '../mockData';
-import { MapPin, Filter, Star, Search, Zap, X, LayoutGrid, Map as MapIcon, LocateFixed, Navigation, Heart } from 'lucide-react';
+import { api } from '../services/api';
+import { Item } from '../types';
+import { MapPin, Filter, Star, Search, Zap, X, LayoutGrid, Map as MapIcon, LocateFixed, Navigation, Heart, Loader2 } from 'lucide-react';
 
 const DefaultIcon = L.icon({
   iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
@@ -27,7 +28,8 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
 };
 
 const Explore: React.FC = () => {
-  const navigate = useNavigate();
+  const [items, setItems] = useState<Item[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
   const [showFilters, setShowFilters] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -37,6 +39,26 @@ const Explore: React.FC = () => {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [isLocating, setIsLocating] = useState(false);
   const [savedItems, setSavedItems] = useState<Set<string>>(new Set());
+
+  // Data Fetching via Optimized Service
+  const fetchItems = async () => {
+    setIsLoading(true);
+    try {
+      const data = await api.getItems({
+        lat: userLocation?.lat,
+        lng: userLocation?.lng,
+        query: searchQuery,
+        category: selectedCategory || undefined
+      });
+      setItems(data);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchItems();
+  }, [userLocation, selectedCategory]);
 
   const toggleSave = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
@@ -67,7 +89,7 @@ const Explore: React.FC = () => {
   }, []);
 
   const itemsWithDistance = useMemo(() => {
-    return MOCK_ITEMS.map((item, index) => {
+    return items.map((item, index) => {
       let lat = item.location.lat;
       let lng = item.location.lng;
       if (userLocation) {
@@ -85,14 +107,12 @@ const Explore: React.FC = () => {
         calculatedDistance: distance 
       };
     });
-  }, [userLocation]);
+  }, [items, userLocation]);
 
   const filteredItems = itemsWithDistance.filter(item => {
-    const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory ? item.category === selectedCategory : true;
     const matchesDistance = item.calculatedDistance <= maxDistance;
     const matchesPrice = item.pricePerDay <= maxPrice;
-    return matchesSearch && matchesCategory && matchesDistance && matchesPrice;
+    return matchesDistance && matchesPrice;
   }).sort((a, b) => a.calculatedDistance - b.calculatedDistance);
 
   const pricePercentage = (maxPrice / 500) * 100;
@@ -163,7 +183,7 @@ const Explore: React.FC = () => {
               </div>
             </div>
 
-            <button onClick={() => setShowFilters(false)} className="w-full mt-12 bg-[#A84bc9] text-white py-5 rounded-2xl font-black text-[10px] uppercase tracking-[0.4em] shadow-2xl transition-all italic hover:brightness-110 active:scale-95">
+            <button onClick={() => { setShowFilters(false); fetchItems(); }} className="w-full mt-12 bg-[#A84bc9] text-white py-5 rounded-2xl font-black text-[10px] uppercase tracking-[0.4em] shadow-2xl transition-all italic hover:brightness-110 active:scale-95">
               Apply
             </button>
           </div>
@@ -201,18 +221,25 @@ const Explore: React.FC = () => {
 
         <div className="mt-8 relative group max-w-2xl overflow-hidden">
           <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20" size={16} />
-          <input 
-            type="text" 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Query neighborhood assets..." 
-            className="w-full pl-12 pr-4 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-[#A84bc9]/40 text-xs font-bold text-white placeholder:text-white/10 outline-none uppercase tracking-[0.2em] transition-all"
-          />
+          <form onSubmit={(e) => { e.preventDefault(); fetchItems(); }}>
+            <input 
+              type="text" 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Query neighborhood assets..." 
+              className="w-full pl-12 pr-4 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-[#A84bc9]/40 text-xs font-bold text-white placeholder:text-white/10 outline-none uppercase tracking-[0.2em] transition-all"
+            />
+          </form>
         </div>
       </div>
 
       <div className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 pb-40 overflow-x-hidden">
-        {viewMode === 'grid' ? (
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-20 text-white/20 uppercase tracking-[0.3em] font-black">
+            <Loader2 className="animate-spin mb-4" size={40} />
+            Scanning Mesh...
+          </div>
+        ) : viewMode === 'grid' ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {filteredItems.map(item => (
               <Link key={item.id} to={`/item/${item.id}`} className="group relative block w-full">
