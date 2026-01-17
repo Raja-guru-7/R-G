@@ -8,6 +8,7 @@ import Handover from './pages/Handover';
 import Dashboard from './pages/Dashboard';
 import AddItem from './pages/AddItem';
 import Landing from './pages/Landing';
+import AiAssistant from './components/AiAssistant';
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -48,6 +49,8 @@ const App: React.FC = () => {
             />
           </Routes>
         </main>
+        
+        {isAuthenticated && <AiAssistant />}
         
         {isAuthenticated && (
           <footer className="bg-[#0a0c12] border-t border-white/5 py-16 px-8 text-center pb-40">

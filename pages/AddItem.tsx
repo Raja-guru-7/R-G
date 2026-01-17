@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Camera, MapPin, DollarSign, Package, ShieldCheck, Loader2, CheckCircle2 } from 'lucide-react';
+import { Camera, MapPin, DollarSign, Package, ShieldCheck, Loader2, CheckCircle2, ChevronLeft } from 'lucide-react';
 import CameraCapture from '../components/CameraCapture';
 
 const AddItem: React.FC = () => {
@@ -49,6 +49,16 @@ const AddItem: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto px-6 pt-16 pb-40 min-h-screen">
+      <button 
+        onClick={() => navigate(-1)}
+        className="flex items-center gap-3 text-white/30 hover:text-white transition-all mb-8 sm:mb-12 font-black uppercase text-[10px] sm:text-xs tracking-widest"
+      >
+        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl flex items-center justify-center">
+          <ChevronLeft size={18} className="w-[18px] h-[18px] sm:w-5 sm:h-5" />
+        </div>
+        Back
+      </button>
+
       <div className="mb-16">
         <h1 className="text-5xl font-black text-white tracking-tighter uppercase italic mb-4">List an <span className="text-[#A84bc9]">Asset</span></h1>
         <p className="text-white/40 font-bold uppercase tracking-[0.3em] text-[10px]">Enable safe peer-to-peer resource sharing in your hub.</p>

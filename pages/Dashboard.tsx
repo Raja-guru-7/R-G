@@ -1,15 +1,90 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MOCK_TRANSACTIONS, MOCK_CURRENT_USER } from '../mockData';
-import { CheckCircle2, ArrowUpRight, TrendingUp, Zap, ShieldCheck, PlusCircle, Activity } from 'lucide-react';
+import { 
+  CheckCircle2, 
+  ArrowUpRight, 
+  TrendingUp, 
+  Zap, 
+  ShieldCheck, 
+  PlusCircle, 
+  Activity, 
+  Loader2, 
+  X, 
+  Globe, 
+  Cpu, 
+  ShieldAlert,
+  ChevronLeft
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
+  const navigate = useNavigate();
   const [tab, setTab] = useState<'renting' | 'lending'>('renting');
+  const [isStatusLoading, setIsStatusLoading] = useState(false);
+  const [showNetworkModal, setShowNetworkModal] = useState(false);
+
+  const handleCheckNetwork = async () => {
+    setIsStatusLoading(true);
+    // Simulate deep network audit
+    await new Promise(r => setTimeout(r, 1500));
+    setIsStatusLoading(false);
+    setShowNetworkModal(true);
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-6 sm:px-10 pt-10 sm:pt-20 pb-40">
       <div className="absolute inset-0 eclipse-glow pointer-events-none -z-10" />
+
+      {/* Network Status Modal Overlay */}
+      {showNetworkModal && (
+        <div className="fixed inset-0 z-[3000] flex items-center justify-center p-6">
+          <div className="absolute inset-0 bg-black/90 backdrop-blur-xl" onClick={() => setShowNetworkModal(false)} />
+          <div className="relative w-full max-w-lg bg-[#0a0c12] border border-white/10 rounded-[3rem] p-8 sm:p-12 shadow-[0_0_100px_rgba(168,75,201,0.2)] animate-in zoom-in-95 duration-300">
+            <button 
+              onClick={() => setShowNetworkModal(false)}
+              className="absolute top-8 right-8 text-white/20 hover:text-white transition-colors"
+            >
+              <X size={24} />
+            </button>
+
+            <div className="flex items-center gap-6 mb-10">
+              <div className="w-16 h-16 bg-[#A84bc9]/20 rounded-[1.5rem] flex items-center justify-center text-[#A84bc9]">
+                <Globe size={32} className="animate-pulse" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-black text-white uppercase italic tracking-tighter">Network Health</h2>
+                <p className="text-[#A84bc9] text-[10px] font-black uppercase tracking-[0.2em]">Operational Status: Optimal</p>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <NetworkMetric icon={<Cpu size={18} />} label="Mesh Latency" value="24ms" status="Excellent" />
+              <NetworkMetric icon={<ShieldCheck size={18} />} label="Encryption" value="AES-256-GCM" status="Quantum-Safe" />
+              <NetworkMetric icon={<Activity size={18} />} label="Nodes Online" value="1,242" status="+12 this hour" />
+              <NetworkMetric icon={<ShieldAlert size={18} />} label="Escrow Sync" value="Verified" status="Block 4,281,092" />
+            </div>
+
+            <button 
+              onClick={() => setShowNetworkModal(false)}
+              className="w-full mt-12 bg-white text-black py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:brightness-90 transition-all active:scale-95 shadow-2xl"
+            >
+              Close Diagnostic
+            </button>
+          </div>
+        </div>
+      )}
+
+      <button 
+        onClick={() => navigate(-1)}
+        className="flex items-center gap-3 text-white/30 hover:text-white transition-all mb-8 sm:mb-12 font-black uppercase text-[10px] sm:text-xs tracking-widest"
+      >
+        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl flex items-center justify-center">
+          <ChevronLeft size={18} className="w-[18px] h-[18px] sm:w-5 sm:h-5" />
+        </div>
+        Back
+      </button>
 
       {/* Dynamic Dashboard Header */}
       <div className="flex flex-col md:flex-row items-start justify-between gap-10 sm:gap-16 mb-16 sm:mb-24">
@@ -168,8 +243,12 @@ const Dashboard: React.FC = () => {
                   </div>
                </div>
             </div>
-            <button className="w-full mt-10 sm:mt-12 bg-white text-[#06070a] py-4 sm:py-5 rounded-xl sm:rounded-[1.8rem] font-black text-[10px] sm:text-xs uppercase tracking-[0.2em] hover:brightness-95 transition-all shadow-xl">
-               Network Status
+            <button 
+              onClick={handleCheckNetwork}
+              disabled={isStatusLoading}
+              className="w-full mt-10 sm:mt-12 bg-white text-[#06070a] py-4 sm:py-5 rounded-xl sm:rounded-[1.8rem] font-black text-[10px] sm:text-xs uppercase tracking-[0.2em] hover:brightness-95 transition-all shadow-xl flex items-center justify-center gap-3 disabled:opacity-80"
+            >
+               {isStatusLoading ? <Loader2 size={18} className="animate-spin" /> : 'Network Status'}
             </button>
           </div>
         </div>
@@ -177,5 +256,18 @@ const Dashboard: React.FC = () => {
     </div>
   );
 };
+
+const NetworkMetric = ({ icon, label, value, status }: { icon: React.ReactNode, label: string, value: string, status: string }) => (
+  <div className="flex items-center justify-between p-5 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 transition-all">
+    <div className="flex items-center gap-4">
+      <div className="text-[#A84bc9]">{icon}</div>
+      <div>
+        <p className="text-[8px] font-black text-white/30 uppercase tracking-[0.2em]">{label}</p>
+        <p className="text-xs font-black text-white uppercase italic">{value}</p>
+      </div>
+    </div>
+    <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest">{status}</span>
+  </div>
+);
 
 export default Dashboard;

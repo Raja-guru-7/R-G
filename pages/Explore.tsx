@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import { MOCK_ITEMS } from '../mockData';
-import { MapPin, Filter, Star, Search, Zap, X, ChevronRight } from 'lucide-react';
+import { MapPin, Filter, Star, Search, Zap, X, ChevronRight, ChevronLeft } from 'lucide-react';
 
 const DefaultIcon = L.icon({
   iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
@@ -15,6 +15,7 @@ const DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const Explore: React.FC = () => {
+  const navigate = useNavigate();
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
   const [showFilters, setShowFilters] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -46,7 +47,6 @@ const Explore: React.FC = () => {
             <div className="flex items-center justify-between mb-10 sm:mb-16">
               <h2 className="text-2xl sm:text-3xl font-black text-white uppercase italic tracking-tighter">Asset Filters</h2>
               <button onClick={() => setShowFilters(false)} className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-white/5 rounded-2xl hover:bg-white/10 transition-colors">
-                {/* Fix: Removed invalid sm:size prop and added responsive Tailwind classes */}
                 <X size={20} className="text-white/80 w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </div>
@@ -106,7 +106,6 @@ const Explore: React.FC = () => {
                       className={`w-full flex items-center justify-between p-4 sm:p-6 rounded-xl sm:rounded-[1.6rem] border transition-all group ${selectedDistance === km ? 'bg-[#A84bc9]/20 border-[#A84bc9]/30' : 'bg-white/5 border-transparent hover:bg-white/10'}`}
                     >
                       <span className={`text-[10px] sm:text-xs font-black uppercase tracking-[0.2em] transition-colors ${selectedDistance === km ? 'text-[#A84bc9]' : 'text-white/80'}`}>{km} Kilometers</span>
-                      {/* Fix: Removed invalid sm:size prop and added responsive Tailwind classes */}
                       <ChevronRight size={14} className={`${selectedDistance === km ? 'text-[#A84bc9] translate-x-1' : 'text-white/20 group-hover:text-white/50'} transition-all w-3.5 h-3.5 sm:w-4 sm:h-4`} />
                     </button>
                   ))}
@@ -141,7 +140,6 @@ const Explore: React.FC = () => {
           <div className="flex items-center gap-4 sm:gap-6">
              <div className="bg-white/5 border border-white/10 p-3 sm:p-4 rounded-2xl sm:rounded-[2.5rem] flex items-center gap-4 sm:gap-6 pr-6 sm:pr-10 group cursor-pointer hover:bg-white/10 transition-all shadow-2xl backdrop-blur-xl">
                <div className="w-10 h-10 sm:w-14 sm:h-14 bg-[#A84bc9] rounded-full flex items-center justify-center text-white transition-all group-hover:scale-110 shadow-lg shadow-[#A84bc9]/30">
-                 {/* Fix: Removed invalid sm:size prop and added responsive Tailwind classes */}
                  <Zap size={18} className="w-[18px] h-[18px] sm:w-6 sm:h-6" fill="currentColor" />
                </div>
                <div>
@@ -155,7 +153,6 @@ const Explore: React.FC = () => {
         {/* Cinematic Search Interface */}
         <div className="mt-10 sm:mt-20 dark-glass p-2 sm:p-3 rounded-2xl sm:rounded-[2.5rem] flex flex-col md:flex-row items-center gap-2 sm:gap-3">
           <div className="relative flex-1 w-full">
-            {/* Fix: Removed invalid sm:size prop and added responsive Tailwind classes */}
             <Search className="absolute left-6 sm:left-8 top-1/2 -translate-y-1/2 text-white/30 w-5 h-5 sm:w-6 sm:h-6" size={20} />
             <input 
               type="text" 
@@ -170,7 +167,6 @@ const Explore: React.FC = () => {
               onClick={() => setShowFilters(true)}
               className="w-full sm:w-auto flex items-center justify-center gap-3 sm:gap-4 px-8 sm:px-10 py-4 sm:py-6 bg-white text-[#06070a] rounded-xl sm:rounded-[1.8rem] font-black text-[10px] sm:text-xs uppercase tracking-[0.2em] hover:bg-slate-50 transition-all shadow-2xl active:scale-95"
             >
-               {/* Fix: Removed invalid sm:size prop and added responsive Tailwind classes */}
                Filters <Filter size={16} className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
             </button>
             <div className="flex bg-[#0a0c12] p-1.5 sm:p-2 rounded-xl sm:rounded-[1.8rem] border border-white/5 shadow-inner w-full sm:w-auto">
@@ -199,7 +195,6 @@ const Explore: React.FC = () => {
                   </div>
                   <div className="p-6 sm:p-10 relative">
                     <div className="flex items-center gap-2 sm:gap-3 text-[#A84bc9] text-[8px] sm:text-[10px] font-black uppercase tracking-[0.2em] mb-4 sm:mb-6">
-                      {/* Fix: Removed invalid sm:size prop and added responsive Tailwind classes */}
                       <MapPin size={12} className="w-3 h-3 sm:w-3.5 sm:h-3.5" /> {item.location.address} • {item.distance}km
                     </div>
                     <h3 className="text-xl sm:text-3xl font-black text-white mb-6 sm:mb-8 group-hover:text-[#A84bc9] transition-colors uppercase italic tracking-tight leading-none">
@@ -211,7 +206,6 @@ const Explore: React.FC = () => {
                          <div>
                             <p className="text-[8px] sm:text-[10px] font-black text-white/40 leading-none mb-1 sm:mb-1.5 uppercase tracking-widest">Provider</p>
                             <div className="flex items-center gap-1.5 sm:gap-2 text-emerald-400 text-[8px] sm:text-[10px] font-black tracking-widest uppercase">
-                              {/* Fix: Removed invalid sm:size prop and added responsive Tailwind classes */}
                               <Star size={8} className="w-2 h-2 sm:w-2.5 sm:h-2.5" fill="currentColor" /> {item.ownerTrustScore}% Trust
                             </div>
                          </div>

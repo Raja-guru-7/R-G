@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { MOCK_TRANSACTIONS } from '../mockData';
-import { ShieldCheck, Info, Lock, CheckCircle, Video, Loader2 } from 'lucide-react';
+import { ShieldCheck, Info, Lock, CheckCircle, Video, Loader2, ChevronLeft } from 'lucide-react';
 import CameraCapture from '../components/CameraCapture';
 
 const Handover: React.FC = () => {
@@ -69,6 +69,16 @@ const Handover: React.FC = () => {
 
   return (
     <div className="max-w-xl mx-auto px-4 py-12 pb-40">
+      <button 
+        onClick={() => navigate(-1)}
+        className="flex items-center gap-3 text-white/30 hover:text-white transition-all mb-8 sm:mb-12 font-black uppercase text-[10px] sm:text-xs tracking-widest"
+      >
+        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl flex items-center justify-center">
+          <ChevronLeft size={18} className="w-[18px] h-[18px] sm:w-5 sm:h-5" />
+        </div>
+        Back
+      </button>
+
       <div className="text-center mb-10">
         <h1 className="text-3xl font-black text-white uppercase italic tracking-tighter">Secure Handover</h1>
         <p className="text-white/40 font-bold uppercase tracking-widest text-xs mt-2">Node Verification: {tx.id}</p>
