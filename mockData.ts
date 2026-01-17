@@ -3,9 +3,9 @@ import { Item, User, Transaction, TransactionStatus } from './types';
 
 export const MOCK_CURRENT_USER: User = {
   id: 'user-1',
-  name: 'Alex Johnson',
+  name: 'R G',
   avatar: 'https://picsum.photos/seed/alex/200',
-  trustScore: 92,
+  trustScore: 99,
   isVerified: true,
   kycStatus: 'VERIFIED',
   location: { lat: 40.7128, lng: -74.0060 }
@@ -56,6 +56,21 @@ export const MOCK_ITEMS: Item[] = [
     imageUrl: 'https://picsum.photos/seed/tent/600/400',
     location: { lat: 40.7180, lng: -74.0000, address: 'Chinatown, New York' },
     distance: 1.2
+  },
+  {
+    id: 'item-4',
+    ownerId: 'user-1',
+    ownerName: 'R G',
+    ownerTrustScore: 99,
+    title: 'Mountain Bike X-200',
+    description: 'Perfect for local trails. Well maintained, includes helmet and lock.',
+    category: 'Vehicle',
+    pricePerDay: 35,
+    depositAmount: 150,
+    insuranceFee: 12,
+    imageUrl: 'https://picsum.photos/seed/bike/600/400',
+    location: { lat: 40.7130, lng: -74.0050, address: 'SoHo, New York' },
+    distance: 0.2
   }
 ];
 
@@ -71,5 +86,29 @@ export const MOCK_TRANSACTIONS: Transaction[] = [
     totalAmount: 105,
     status: TransactionStatus.HANDOVER_IN_PROGRESS,
     otpCode: '8824'
+  },
+  {
+    id: 'tx-2',
+    itemId: 'item-2',
+    itemTitle: 'Heavy Duty Power Drill Set',
+    renterId: 'user-1',
+    ownerId: 'owner-2',
+    startDate: '2023-10-20',
+    endDate: '2023-10-22',
+    totalAmount: 35,
+    status: TransactionStatus.ACTIVE,
+    otpCode: '1234'
+  },
+  {
+    id: 'tx-3',
+    itemId: 'item-4',
+    itemTitle: 'Mountain Bike X-200',
+    renterId: 'renter-2',
+    ownerId: 'user-1',
+    startDate: '2023-11-01',
+    endDate: '2023-11-03',
+    totalAmount: 82,
+    status: TransactionStatus.REQUESTED,
+    otpCode: '9981'
   }
 ];
