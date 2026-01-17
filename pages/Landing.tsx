@@ -54,7 +54,7 @@ const Landing: React.FC<LandingProps> = ({ onLogin }) => {
       </div>
 
       {/* Pill Navigation Bar */}
-      <div className="mt-6 sm:mt-10 w-full max-w-6xl px-4 sm:px-10 z-[60]">
+      <div className="mt-6 sm:mt-10 w-full max-w-7xl px-4 sm:px-6 z-[60]">
         <div className="dark-glass rounded-full px-6 sm:px-10 py-3 sm:py-4 flex items-center justify-between shadow-[0_20px_60px_rgba(0,0,0,0.8)] border border-white/5 ring-1 ring-white/5">
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="bg-[#A84bc9] p-1.5 sm:p-2 rounded-lg sm:rounded-xl shadow-xl shadow-[#A84bc9]/20">
@@ -81,7 +81,7 @@ const Landing: React.FC<LandingProps> = ({ onLogin }) => {
       </div>
 
       {/* Hero Content Section */}
-      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 sm:px-10 py-20">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6 py-20">
         <div className="relative mb-6 sm:mb-8 select-none">
           <div className="text-[60px] sm:text-[120px] md:text-[160px] font-black text-white/5 italic leading-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[80%] whitespace-nowrap tracking-tighter">
             Completely
@@ -113,7 +113,7 @@ const Landing: React.FC<LandingProps> = ({ onLogin }) => {
         </div>
 
         {/* Feature Grid */}
-        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-6xl mt-16 sm:mt-24 mb-10">
+        <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 w-full max-w-7xl mt-16 sm:mt-24 mb-10">
           <FeatureHub icon={<Video size={20} className="text-[#A84bc9]" />} title="Live Proof" sub="Node Handover" />
           <FeatureHub icon={<UserCheck size={20} className="text-[#A84bc9]" />} title="Biometrics" sub="ID Verification" />
           <FeatureHub icon={<Wallet size={20} className="text-[#A84bc9]" />} title="Escrow" sub="Risk Management" />

@@ -170,7 +170,7 @@ const Explore: React.FC = () => {
         </div>
       )}
 
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-10 pt-10 sm:pt-16 pb-8 overflow-x-hidden">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-10 sm:pt-16 pb-8 overflow-x-hidden">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-full overflow-hidden">
             <h1 className="text-3xl sm:text-7xl font-black text-white tracking-tighter uppercase italic leading-none break-words">
@@ -211,7 +211,7 @@ const Explore: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-10 pb-40 overflow-x-hidden">
+      <div className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 pb-40 overflow-x-hidden">
         {viewMode === 'grid' ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {filteredItems.map(item => (

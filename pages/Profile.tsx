@@ -8,7 +8,7 @@ const Profile: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="max-w-4xl mx-auto px-6 pt-12 pb-32">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-12 pb-32">
       <button 
         onClick={() => navigate(-1)}
         className="flex items-center gap-3 text-white/30 hover:text-white transition-all mb-12 font-black uppercase text-[10px] tracking-widest"
@@ -147,7 +147,7 @@ const ReviewCard = ({ name, comment, item }: { name: string, comment: string, it
 const HistoryItem = ({ label, status, date }: { label: string, status: string, date: string }) => (
   <div className="flex items-center justify-between group cursor-pointer">
     <div className="flex items-center gap-6">
-      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_100px_rgba(16,185,129,0.5)]" />
+      <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_100px_rgba(168,75,201,0.5)]" />
       <div>
         <p className="text-[11px] font-black text-white uppercase tracking-widest">{label}</p>
         <p className="text-[9px] font-black text-white/20 uppercase tracking-widest">{date}</p>

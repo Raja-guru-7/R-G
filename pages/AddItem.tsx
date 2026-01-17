@@ -48,7 +48,7 @@ const AddItem: React.FC = () => {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-6 pt-16 pb-40 min-h-screen">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-16 pb-40 min-h-screen">
       <button 
         onClick={() => navigate(-1)}
         className="flex items-center gap-3 text-white/30 hover:text-white transition-all mb-8 sm:mb-12 font-black uppercase text-[10px] sm:text-xs tracking-widest"
@@ -59,12 +59,12 @@ const AddItem: React.FC = () => {
         Back
       </button>
 
-      <div className="mb-16">
+      <div className="mb-16 px-2">
         <h1 className="text-5xl font-black text-white tracking-tighter uppercase italic mb-4">List an <span className="text-[#A84bc9]">Asset</span></h1>
         <p className="text-white/40 font-bold uppercase tracking-[0.3em] text-[10px]">Enable safe peer-to-peer resource sharing in your hub.</p>
       </div>
 
-      <div className="bg-[#0a0c12] rounded-[3rem] overflow-hidden shadow-2xl border border-white/5 backdrop-blur-3xl">
+      <div className="bg-[#0a0c12] rounded-[3rem] overflow-hidden shadow-2xl border border-white/5 backdrop-blur-3xl mx-2">
         <div className="bg-white/5 px-10 py-6 border-b border-white/5 flex justify-between items-center">
           <span className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em]">Operational Phase {step} / 2</span>
           <div className="flex gap-3">

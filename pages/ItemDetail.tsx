@@ -27,7 +27,7 @@ const ItemDetail: React.FC = () => {
   const totalDue = rentalFee + (securityStrategy === 'insurance' ? insuranceFee : 0) - trustBonus;
 
   return (
-    <div className="max-w-7xl mx-auto px-6 sm:px-8 pt-8 sm:pt-12 pb-32">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-32">
       <button 
         onClick={() => navigate('/explore')}
         className="flex items-center gap-3 text-white/30 hover:text-white transition-all mb-8 sm:mb-12 font-black uppercase text-[10px] sm:text-xs tracking-widest relative z-50"

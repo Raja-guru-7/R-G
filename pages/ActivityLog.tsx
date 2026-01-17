@@ -16,7 +16,7 @@ const ActivityLog: React.FC = () => {
   }, [searchQuery]);
 
   return (
-    <div className="max-w-6xl mx-auto px-6 pt-12 pb-40">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-40">
       <button 
         onClick={() => navigate(-1)}
         className="flex items-center gap-3 text-white/30 hover:text-white transition-all mb-12 font-black uppercase text-[10px] tracking-widest"

@@ -59,7 +59,7 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, onToggleRole }) => {
   return (
     <>
       <div className="w-full h-20 sm:h-24 sticky top-0 z-[1001] bg-[#06070a]/80 backdrop-blur-2xl border-b border-white/5">
-        <div className="max-w-7xl mx-auto h-full px-4 sm:px-10 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto h-full px-4 sm:px-6 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2 sm:gap-4 group">
             <div className="bg-[#A84bc9] p-2 rounded-[0.8rem] sm:rounded-[1.2rem] group-hover:rotate-12 transition-all shadow-xl shadow-[#A84bc9]/30 ring-1 ring-white/20">
               <ShieldCheck className="text-white" size={20} />

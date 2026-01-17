@@ -45,7 +45,7 @@ const Dashboard: React.FC<DashboardProps> = ({ role }) => {
   };
 
   return (
-    <div className="relative max-w-7xl mx-auto px-6 sm:px-10 pt-10 sm:pt-20 pb-40">
+    <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-10 sm:pt-20 pb-40">
       <div className="absolute inset-0 eclipse-glow pointer-events-none -z-10" />
 
       {/* Network Status Modal Overlay */}
@@ -127,7 +127,7 @@ const Dashboard: React.FC<DashboardProps> = ({ role }) => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12">
         {/* Main List Column */}
         <div className="lg:col-span-8 space-y-8 sm:space-y-10">
-          <div className="flex items-center justify-between px-4 sm:px-6">
+          <div className="flex items-center justify-between px-2 sm:px-4">
             <h2 className="text-lg sm:text-xl font-black text-white uppercase tracking-widest italic">Live Operations</h2>
             <div className="flex items-center gap-2 sm:gap-3 bg-[#A84bc9]/10 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-[#A84bc9]/20">
                <div className="w-1.5 h-1.5 rounded-full bg-[#A84bc9] animate-ping" />
