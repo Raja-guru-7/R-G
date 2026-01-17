@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrustRent | Secure P2P Rentals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #06070a;
+        color: #ffffff;
+        margin: 0;
+        overflow-x: hidden;
+      }
+      :root {
+        --theme-primary: #A84bc9;
+      }
+      .leaflet-container {
+        width: 100%;
+        height: 100%;
+        border-radius: 2.5rem;
+        z-index: 1;
+        filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+      }
+      .dark-glass {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      }
+      .eclipse-glow {
+        background: radial-gradient(circle at center, rgba(168, 75, 201, 0.1) 0%, rgba(6, 7, 10, 0) 70%);
+      }
+      .card-3d {
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+      }
+      .card-3d:hover {
+        transform: perspective(1000px) rotateX(2deg) rotateY(2deg) translateY(-8px);
+        box-shadow: 0 25px 50px -12px rgba(168, 75, 201, 0.25);
+        border-color: rgba(168, 75, 201, 0.3);
+      }
+      .glow-border {
+        position: relative;
+      }
+      .glow-border::after {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        background: linear-gradient(45deg, transparent, rgba(168, 75, 201, 0.5), transparent);
+        z-index: -1;
+        border-radius: inherit;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .glow-border:hover::after {
+        opacity: 1;
+      }
+      @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(var(--tw-rotate, 0deg)); }
+        50% { transform: translateY(-15px) rotate(var(--tw-rotate, 0deg)); }
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .text-outline {
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
+        color: transparent;
+      }
+
+      /* Cinematic Range Slider Styling */
+      input[type=range].cinematic-slider {
+        -webkit-appearance: none;
+        width: 100%;
+        background: transparent;
+        cursor: pointer;
+      }
+      input[type=range].cinematic-slider:focus {
+        outline: none;
+      }
+      input[type=range].cinematic-slider::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 6px;
+        border-radius: 3px;
+        background: transparent; /* Background handled by inline gradient for progress look */
+      }
+      input[type=range].cinematic-slider::-webkit-slider-thumb {
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        background: #ffffff;
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -9px;
+        border: 4px solid #0a0c12;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      input[type=range].cinematic-slider:active::-webkit-slider-thumb {
+        transform: scale(1.15);
+      }
+      input[type=range].cinematic-slider::-moz-range-track {
+        width: 100%;
+        height: 6px;
+        border-radius: 3px;
+        background: transparent;
+      }
+      input[type=range].cinematic-slider::-moz-range-thumb {
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 4px solid #0a0c12;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+      }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "react": "https://esm.sh/react@^19.2.3",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+        "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0",
+        "react-leaflet": "https://esm.sh/react-leaflet@^5.0.0",
+        "leaflet": "https://esm.sh/leaflet@^1.9.4"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
